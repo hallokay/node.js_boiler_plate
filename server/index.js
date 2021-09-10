@@ -100,6 +100,7 @@ app.post("/api/users/login", (req, res) => {
 });
 
 const { auth } = require("./middleware/auth");
+const { application } = require("express");
 app.get("/api/users/auth", auth, (req, res) => {
   // 여기까지 미들웨어가 통과했다는 말은 인증이 true라는 말
 
@@ -125,4 +126,9 @@ app.get("/api/users/logout", auth, (req, res) => {
       success: true,
     });
   });
+});
+
+
+app.get("/api/hello", (req, res) => {
+  res.send("안녕하세요")
 });
