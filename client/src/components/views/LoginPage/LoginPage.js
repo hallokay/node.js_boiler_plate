@@ -1,34 +1,36 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import {useDispatch} from 'react-redux';
-import {loginUser} from '../../../_action/user_action'
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../../_action/user_action";
+import { withRouter } from "react-router-dom";
 
-const LoginPage = ( props ) => {
+
+const LoginPage = (props) => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     let body = {
-        Email,
-        Password
-    }
+      email: Email,
+      password: Password,
+    };
 
-    dispatch(loginUser(body))
-    .then(res => {
-        if(res.payload.loginSuccess){
-            props.history.push('/')
-        } else {
-            alert('Error');
-        }
-    })
-//  _action 의 useraction으로 데이터를 보냄
+    dispatch(loginUser(body)).then((res) => {
+      console.log(res);
+      if (res.payload.loginSucess) {
+        props.history.push("/");
+      } else {
+        alert("Error");
+      }
+    });
+    //  _action 의 useraction으로 데이터를 보냄
 
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   };
 
   const onChange = (e) => {
@@ -57,4 +59,4 @@ const dispatch = useDispatch();
   );
 };
 
-export default LoginPage;
+export default withRouter(LoginPage);

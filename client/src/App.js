@@ -1,16 +1,16 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LandinPage from "./components/views/LandingPage/LandinPage";
 import LoginPage from "./components/views/LoginPage/LoginPage";
-import ResisterPage from "./components/views/ResisterPage/ResisterPage";
-
+import RegisterPage from "./components/views/RegisterPage/RegisterPage";
+import Auth from './hoc/auth';
 function App() {
   return (
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" component={LandinPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/resister" component={ResisterPage} />
+          <Route exact path="/" component={Auth(LandinPage, null)} />
+          <Route exact path="/login" component={Auth(LoginPage, false)} />
+          <Route exact path="/register" component={Auth(RegisterPage, false)} />
         </Switch>
       </div>
     </Router>

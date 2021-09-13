@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "../LoginPage/LoginPage.css";
 import { useDispatch } from "react-redux";
-import { resisterUser } from "../../../_action/user_action";
+import { registerUser } from "../../../_action/user_action";
+import { withRouter } from "react-router-dom";
 
-const ResisterPage = (props) => {
+
+const RegisterPage = (props) => {
   const [Email, setEmail] = useState("");
   const [Name, setName] = useState("");
   const [Password, setPassword] = useState("");
@@ -24,11 +26,11 @@ const ResisterPage = (props) => {
       password: Password,
     };
 
-    dispatch(resisterUser(body)).then((res) => {
-      if (res.payload.loginSuccess) {
-        props.history.push("/");
+    dispatch(registerUser(body)).then((res) => {
+      if (res.payload.success) {
+        props.history.push("/login");
       } else {
-        alert("Error");
+        alert("failed to sign up");
       }
     });
     //  _action 의 useraction으로 데이터를 보냄
@@ -83,4 +85,4 @@ const ResisterPage = (props) => {
   );
 };
 
-export default ResisterPage;
+export default withRouter(RegisterPage);
